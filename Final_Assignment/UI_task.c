@@ -225,7 +225,6 @@ static repair_states prev_repair;
                     if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
                         TF = TRUE;
                         xQueueSend( xQueue_elevator, &TF, portMAX_DELAY); // Unlock elevator
-                        //elevator_state = AVAILABLE;
                         xSemaphoreGive( xSemaphore_ele_state );
                     }
 
@@ -240,7 +239,6 @@ static repair_states prev_repair;
                     if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
                         TF = TRUE;
                         xQueueSend( xQueue_elevator, &TF, portMAX_DELAY); // Unlock elevator if code matches previously used code
-                        //elevator_state = AVAILABLE;
                         xSemaphoreGive( xSemaphore_ele_state );
                     }
 
@@ -250,7 +248,6 @@ static repair_states prev_repair;
                     if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
                         TF = FALSE;
                         xQueueSend( xQueue_elevator, &TF, portMAX_DELAY); // Require elevator to be called again, if code is not correct
-                        //elevator_state = AWAY;
                         xSemaphoreGive( xSemaphore_ele_state );
                     }
                 }
@@ -448,8 +445,6 @@ static repair_states prev_repair;
                                 if(xSemaphoreTake(xSemaphore_ele_flr, portMAX_DELAY)){
                                     TF = TRUE;
                                     xQueueSend( xQueue_encoder, &TF, portMAX_DELAY);
-                                    //encoder_cnt = 0;
-                                    //data.dir = RIGHT;
                                     xSemaphoreGive( xSemaphore_ele_flr );
                                 }
 
@@ -469,8 +464,6 @@ static repair_states prev_repair;
                                 if(xSemaphoreTake(xSemaphore_ele_flr, portMAX_DELAY)){
                                     TF = FALSE;
                                     xQueueSend( xQueue_encoder, &TF, portMAX_DELAY);
-                                    //encoder_cnt = 0;
-                                    //data.dir = LEFT;
                                     xSemaphoreGive( xSemaphore_ele_flr );
                                 }
 

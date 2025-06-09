@@ -26,7 +26,7 @@
 #define BUTTON_CHECK_INTERVAL_MS 50
 #define REQUIRED_PRESS_TIME_MS 600
 
-extern QueueHandle_t xQueue_lcd;
+extern QueueHandle_t xQueue_lcd, xQueue_button;
 extern elevator_states elevator_state;
 extern struct elevator_data data;
 
@@ -37,6 +37,7 @@ INT8U button_pushed()
 
 void switch_task(void *pvParameters){
 
+INT8U TF;
 INT16U long_press_check = 0;
 
     while(1){
@@ -44,7 +45,8 @@ INT16U long_press_check = 0;
             long_press_check += BUTTON_CHECK_INTERVAL_MS;       // Increment time button has been pressed
             if(long_press_check >= REQUIRED_PRESS_TIME_MS){     // Check if button has been pressed longer than threshold
                 if(data.CUR_FLOOR == data.ELE_FLOOR){           // If the elevator is on the same floor as the person, then the elevator should go to code input - Locked state
-                    elevator_state = LOCKED;
+                    TF = FALSE;
+                    xQueueSend( xQueue_button, &TF, portMAX_DELAY);
                 }
                 else{
                     data.FLOOR_SELECTION = data.CUR_FLOOR;      // If elevator is not on the current floor, the elevator should be called to the current floor

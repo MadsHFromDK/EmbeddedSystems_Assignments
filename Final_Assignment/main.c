@@ -31,7 +31,7 @@
 
 #define QUEUE_LEN   128
 
-QueueHandle_t xQueue_keypad, xQueue_lcd, xQueue_elevator, xQueue_encoder;
+QueueHandle_t xQueue_keypad, xQueue_lcd, xQueue_elevator, xQueue_encoder, xQueue_button;
 SemaphoreHandle_t xSemaphore_keypad, xSemaphore_lcd, xSemaphore_ele_state, xSemaphore_ele_flr, xSemaphore_enc;
 
 static void setupHardware(void)
@@ -51,6 +51,7 @@ static void setupHardware(void)
   xQueue_keypad = xQueueCreate( QUEUE_LEN , sizeof( INT8U ));
   xQueue_elevator = xQueueCreate( 1 , sizeof( INT8U ));
   xQueue_encoder = xQueueCreate( 1 , sizeof( INT8U ));
+  xQueue_button = xQueueCreate( 1 , sizeof( INT8U ));
   xSemaphore_lcd = xSemaphoreCreateMutex();
   xSemaphore_keypad = xSemaphoreCreateMutex();
   xSemaphore_ele_state = xSemaphoreCreateMutex();

@@ -108,8 +108,7 @@ void handle_encoder(void){
 
                     if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
                         TF = FALSE;
-                        xQueueSend( xQueue_elevator, &TF, portMAX_DELAY);
-                        //elevator_state = LOCKED;              // Switch elevator state to LOCKED
+                        xQueueSend( xQueue_elevator, &TF, portMAX_DELAY); // Switch elevator state to LOCKED
                         xSemaphoreGive( xSemaphore_ele_state );
                     }
 
@@ -128,8 +127,7 @@ void handle_encoder(void){
 
                     if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
                         TF = FALSE;
-                        xQueueSend( xQueue_elevator, &TF, portMAX_DELAY);
-                        //elevator_state = LOCKED;                // Switch elevator state to LOCKED
+                        xQueueSend( xQueue_elevator, &TF, portMAX_DELAY); // Switch elevator state to LOCKED
                         xSemaphoreGive( xSemaphore_ele_state );
                     }
 
@@ -190,7 +188,6 @@ void rotary_encoder_task(void *pvParameters){
 
             if (A_in == B_in){
                 if (transition == 0b10){                        // Counter clock wise rotation of encoder
-
                     if(xSemaphoreTake(xSemaphore_enc, portMAX_DELAY)){
                         data.dir = LEFT;                            // Set the rotation direction - shared
                         encoder_cnt--;                              // Decrement encoder position
@@ -200,19 +197,6 @@ void rotary_encoder_task(void *pvParameters){
                     if(xSemaphoreTake(xSemaphore_enc, portMAX_DELAY)){
                         data.dir = RIGHT;
                         encoder_cnt++;                              // Increment encoder position
-                        xSemaphoreGive( xSemaphore_enc );
-                    }
-                }
-            }
-            else {
-                if (transition == 0b10) {                       // Does not change encoder position here, to limit wrong encoder changes
-                    if(xSemaphoreTake(xSemaphore_enc, portMAX_DELAY)){
-                        data.dir = LEFT;
-                        xSemaphoreGive( xSemaphore_enc );
-                    }
-                } else if (transition == 0b01) {
-                    if(xSemaphoreTake(xSemaphore_enc, portMAX_DELAY)){
-                        data.dir = RIGHT;
                         xSemaphoreGive( xSemaphore_enc );
                     }
                 }
