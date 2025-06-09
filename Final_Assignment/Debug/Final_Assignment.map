@@ -1,17 +1,17 @@
 ******************************************************************************
                   TI ARM Linker PC v20.2.7                     
 ******************************************************************************
->> Linked Fri Jun  6 12:46:42 2025
+>> Linked Mon Jun  9 21:56:16 2025
 
 OUTPUT FILE NAME:   <Final_Assignment.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00005755
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00005959
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00040000  000058e6  0003a71a  R  X
+  FLASH                 00000000   00040000  00005aea  0003a516  R  X
   SRAM                  20000000   00008000  00001f36  000060ca  RW X
 
 
@@ -19,11 +19,11 @@ SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    000058e8   000058e8    r-x
+00000000    00000000    00005af0   00005af0    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    0000557e   0000557e    r-x .text
-  000057ec    000057ec    000000b4   000000b4    r-- .const
-  000058a0    000058a0    00000048   00000048    r-- .cinit
+  0000026c    0000026c    00005782   00005782    r-x .text
+  000059f0    000059f0    000000b4   000000b4    r-- .const
+  00005aa8    00005aa8    00000048   00000048    r-- .cinit
 20000000    20000000    00001f39   00000000    rw-
   20000000    20000000    00001cdd   00000000    rw- .bss
   20001ce0    20001ce0    00000200   00000000    rw- .stack
@@ -38,66 +38,66 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     startup_frt.obj (.intvecs)
 
-.text      0    0000026c    0000557e     
+.text      0    0000026c    00005782     
                   0000026c    00001d30     tasks.obj (.text)
-                  00001f9c    00000d78     UI_task.obj (.text)
-                  00002d14    00000bea     queue.obj (.text)
-                  000038fe    00000002     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.c.obj (.text:_nop)
-                  00003900    00000824     elevator.obj (.text)
-                  00004124    00000434     rotary_encoder.obj (.text)
-                  00004558    000003b4     lcd.obj (.text)
-                  0000490c    00000224     key.obj (.text)
-                  00004b30    000001d8     heap_2.obj (.text)
-                  00004d08    000001b8     main.obj (.text)
-                  00004ec0    0000013c     leds.obj (.text)
-                  00004ffc    0000013c     port.obj (.text)
-                  00005138    0000012a     list.obj (.text)
-                  00005262    00000002     --HOLE-- [fill = 0]
-                  00005264    000000da     portasm.obj (.text)
-                  0000533e    00000002     --HOLE-- [fill = 0]
-                  00005340    000000b0     gpio.obj (.text)
-                  000053f0    000000a4     btn.obj (.text)
-                  00005494    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
-                  00005530    00000090     adc.obj (.text)
-                  000055c0    0000007a     rtsv7M4_T_le_v4SPD16_eabi.lib : memset_t2.asm.obj (.text)
-                  0000563a    00000002     --HOLE-- [fill = 0]
-                  0000563c    0000006c     systick_frt.obj (.text)
-                  000056a8    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  00005710    00000044                                   : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
-                  00005754    00000034                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
-                  00005788    00000034                                   : rand.c.obj (.text:rand)
-                  000057bc    0000000e                                   : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  000057ca    0000000c                                   : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  000057d6    0000000c     startup_frt.obj (.text)
-                  000057e2    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  000057e6    00000004                                   : exit.c.obj (.text:abort:abort)
+                  00001f9c    00000f1c     UI_task.obj (.text)
+                  00002eb8    00000bea     queue.obj (.text)
+                  00003aa2    00000002     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.c.obj (.text:_nop)
+                  00003aa4    00000884     elevator.obj (.text)
+                  00004328    00000434     rotary_encoder.obj (.text)
+                  0000475c    000003b4     lcd.obj (.text)
+                  00004b10    00000224     key.obj (.text)
+                  00004d34    000001d8     heap_2.obj (.text)
+                  00004f0c    000001b8     main.obj (.text)
+                  000050c4    0000013c     leds.obj (.text)
+                  00005200    0000013c     port.obj (.text)
+                  0000533c    0000012a     list.obj (.text)
+                  00005466    00000002     --HOLE-- [fill = 0]
+                  00005468    000000da     portasm.obj (.text)
+                  00005542    00000002     --HOLE-- [fill = 0]
+                  00005544    000000b0     gpio.obj (.text)
+                  000055f4    000000a4     btn.obj (.text)
+                  00005698    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
+                  00005734    00000090     adc.obj (.text)
+                  000057c4    0000007a     rtsv7M4_T_le_v4SPD16_eabi.lib : memset_t2.asm.obj (.text)
+                  0000583e    00000002     --HOLE-- [fill = 0]
+                  00005840    0000006c     systick_frt.obj (.text)
+                  000058ac    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00005914    00000044                                   : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  00005958    00000034                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  0000598c    00000034                                   : rand.c.obj (.text:rand)
+                  000059c0    0000000e                                   : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  000059ce    0000000c                                   : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  000059da    0000000c     startup_frt.obj (.text)
+                  000059e6    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  000059ea    00000004                                   : exit.c.obj (.text:abort:abort)
 
-.const     0    000057ec    000000b4     
-                  000057ec    00000011     UI_task.obj (.const:.string:$P$T1$8)
-                  000057fd    00000011     UI_task.obj (.const:.string:$P$T9$16)
-                  0000580e    0000000f     UI_task.obj (.const:.string:$P$T2$9)
-                  0000581d    0000000f     UI_task.obj (.const:.string:$P$T3$10)
-                  0000582c    0000000f     UI_task.obj (.const:.string:$P$T8$15)
-                  0000583b    0000000e     UI_task.obj (.const:.string:$P$T0$7)
-                  00005849    0000000e     UI_task.obj (.const:.string:$P$T7$14)
-                  00005857    0000000c     key.obj (.const:$P$T0$1)
-                  00005863    0000000b     UI_task.obj (.const:.string:$P$T4$11)
-                  0000586e    0000000a     lcd.obj (.const:.string:LCD_init_sequense)
-                  00005878    00000008     UI_task.obj (.const:.string:$P$T5$12)
-                  00005880    00000007     UI_task.obj (.const:.string:$P$T6$13)
-                  00005887    00000005     UI_task.obj (.const:.string:$P$T10$17)
-                  0000588c    00000005     UI_task.obj (.const:.string:$P$T11$18)
-                  00005891    00000005     UI_task.obj (.const:.string:$P$T12$19)
-                  00005896    00000002     --HOLE-- [fill = 0]
-                  00005898    00000004     port.obj (.const)
-                  0000589c    00000004     tasks.obj (.const)
+.const     0    000059f0    000000b4     
+                  000059f0    00000011     UI_task.obj (.const:.string:$P$T1$8)
+                  00005a01    00000011     UI_task.obj (.const:.string:$P$T9$16)
+                  00005a12    0000000f     UI_task.obj (.const:.string:$P$T2$9)
+                  00005a21    0000000f     UI_task.obj (.const:.string:$P$T3$10)
+                  00005a30    0000000f     UI_task.obj (.const:.string:$P$T8$15)
+                  00005a3f    0000000e     UI_task.obj (.const:.string:$P$T0$7)
+                  00005a4d    0000000e     UI_task.obj (.const:.string:$P$T7$14)
+                  00005a5b    0000000c     key.obj (.const:$P$T0$1)
+                  00005a67    0000000b     UI_task.obj (.const:.string:$P$T4$11)
+                  00005a72    0000000a     lcd.obj (.const:.string:LCD_init_sequense)
+                  00005a7c    00000008     UI_task.obj (.const:.string:$P$T5$12)
+                  00005a84    00000007     UI_task.obj (.const:.string:$P$T6$13)
+                  00005a8b    00000005     UI_task.obj (.const:.string:$P$T10$17)
+                  00005a90    00000005     UI_task.obj (.const:.string:$P$T11$18)
+                  00005a95    00000005     UI_task.obj (.const:.string:$P$T12$19)
+                  00005a9a    00000002     --HOLE-- [fill = 0]
+                  00005a9c    00000004     port.obj (.const)
+                  00005aa0    00000004     tasks.obj (.const)
 
-.cinit     0    000058a0    00000048     
-                  000058a0    00000020     (.cinit..data.load) [load image, compression = lzss]
-                  000058c0    0000000c     (__TI_handler_table)
-                  000058cc    00000004     --HOLE-- [fill = 0]
-                  000058d0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  000058d8    00000010     (__TI_cinit_table)
+.cinit     0    00005aa8    00000048     
+                  00005aa8    00000020     (.cinit..data.load) [load image, compression = lzss]
+                  00005ac8    0000000c     (__TI_handler_table)
+                  00005ad4    00000004     --HOLE-- [fill = 0]
+                  00005ad8    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00005ae0    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
@@ -157,9 +157,9 @@ MODULE SUMMARY
     .\
        tasks.obj                    7472    4         360    
        heap_2.obj                   472     0         7024   
-       UI_task.obj                  3448    148       9      
+       UI_task.obj                  3868    148       9      
        queue.obj                    3050    0         0      
-       elevator.obj                 2084    0         6      
+       elevator.obj                 2180    0         6      
        rotary_encoder.obj           1076    0         15     
        lcd.obj                      948     10        3      
        startup_frt.obj              12      620       0      
@@ -174,7 +174,7 @@ MODULE SUMMARY
        adc.obj                      144     0         4      
        systick_frt.obj              108     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       21290   798       7466   
+       Total:                       21806   798       7466   
                                                              
     C:\ti\ccs1260\ccs\tools\compiler\ti-cgt-arm_20.2.7.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
        memcpy_t2.asm.obj            156     0         0      
@@ -194,19 +194,19 @@ MODULE SUMMARY
        Stack:                       0       0         512    
        Linker Generated:            0       68        0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 21880   866       7990   
+       Grand Total:                 22396   866       7990   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 000058d8 records: 2, size/record: 8, table size: 16
-	.data: load addr=000058a0, load size=00000020 bytes, run addr=20001ee0, run size=00000059 bytes, compression=lzss
-	.bss: load addr=000058d0, load size=00000008 bytes, run addr=20000000, run size=00001cdd bytes, compression=zero_init
+__TI_cinit_table @ 00005ae0 records: 2, size/record: 8, table size: 16
+	.data: load addr=00005aa8, load size=00000020 bytes, run addr=20001ee0, run size=00000059 bytes, compression=lzss
+	.bss: load addr=00005ad8, load size=00000008 bytes, run addr=20000000, run size=00001cdd bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 000058c0 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00005ac8 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -216,126 +216,126 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                               
 -------   ----                               
-000057e7  C$$EXIT                            
+000059eb  C$$EXIT                            
 20001cda  LCD_init                           
-0000586e  LCD_init_sequense                  
+00005a72  LCD_init_sequense                  
 20001f2a  LCD_state                          
-000057d7  ResetISR                           
-00004769  Set_cursor                         
-000020bd  UI_task                            
+000059db  ResetISR                           
+0000496d  Set_cursor                         
+000020d9  UI_task                            
 20001ee0  __STACK_END                        
 00000200  __STACK_SIZE                       
 20001ee0  __STACK_TOP                        
-000058d8  __TI_CINIT_Base                    
-000058e8  __TI_CINIT_Limit                   
-000058c0  __TI_Handler_Table_Base            
-000058cc  __TI_Handler_Table_Limit           
-00005711  __TI_auto_init_nobinit_nopinit     
-000056a9  __TI_decompress_lzss               
-000057bd  __TI_decompress_none               
+00005ae0  __TI_CINIT_Base                    
+00005af0  __TI_CINIT_Limit                   
+00005ac8  __TI_Handler_Table_Base            
+00005ad4  __TI_Handler_Table_Limit           
+00005915  __TI_auto_init_nobinit_nopinit     
+000058ad  __TI_decompress_lzss               
+000059c1  __TI_decompress_none               
 ffffffff  __TI_pprof_out_hndl                
 ffffffff  __TI_prof_data_size                
 ffffffff  __TI_prof_data_start               
 00000000  __TI_static_base__                 
-000057cb  __TI_zero_init                     
-000055c1  __aeabi_memclr                     
-000055c1  __aeabi_memclr4                    
-000055c1  __aeabi_memclr8                    
-00005495  __aeabi_memcpy                     
-00005495  __aeabi_memcpy4                    
-00005495  __aeabi_memcpy8                    
-000055c3  __aeabi_memset                     
-000055c3  __aeabi_memset4                    
-000055c3  __aeabi_memset8                    
+000059cf  __TI_zero_init                     
+000057c5  __aeabi_memclr                     
+000057c5  __aeabi_memclr4                    
+000057c5  __aeabi_memclr8                    
+00005699  __aeabi_memcpy                     
+00005699  __aeabi_memcpy4                    
+00005699  __aeabi_memcpy8                    
+000057c7  __aeabi_memset                     
+000057c7  __aeabi_memset4                    
+000057c7  __aeabi_memset8                    
 ffffffff  __binit__                          
 ffffffff  __c_args__                         
 UNDEFED   __mpu_init                         
 20001ce0  __stack                            
 20000000  __start___llvm_prf_cnts            
 20000000  __stop___llvm_prf_cnts             
-00005755  _c_int00_noargs                    
+00005959  _c_int00_noargs                    
 20001f14  _lock                              
-000038ff  _nop                               
+00003aa3  _nop                               
 UNDEFED   _system_post_cinit                 
-000057e3  _system_pre_init                   
+000059e7  _system_pre_init                   
 20001f18  _unlock                            
-000057e7  abort                              
-00005539  adc_task                           
+000059eb  abort                              
+0000573d  adc_task                           
 ffffffff  binit                              
-000053f1  button_pushed                      
-00004125  change_int_to_char                 
+000055f5  button_pushed                      
+00004329  change_int_to_char                 
 00001f9d  change_int_to_char1                
-000049dd  check_column                       
-00004755  clr_LCD                            
-00002055  convert_string_to_int              
+00004be1  check_column                       
+00004959  clr_LCD                            
+00002071  convert_string_to_int              
 20001c84  data                               
 20001ca8  data_adc                           
 20001cdb  elevator_state                     
-00003909  elevator_task                      
+00003aad  elevator_task                      
 20001f34  encoder_cnt                        
 00000000  g_pfnVectors                       
-00005531  get_adc                            
-00004987  get_keyboard                       
-00004f1d  green_led_init                     
-000041bb  handle_encoder                     
-0000475f  home_LCD                           
-00005553  init_adc                           
-00003901  init_elevator_state                
-00005361  init_gpio                          
-00004f4b  init_leds                          
-00005341  init_rot_enc                       
-00004195  init_strct                         
-0000563d  init_systick                       
-00004959  key_catch                          
-00004a4d  key_task                           
-000047b9  lcd_task                           
+00005735  get_adc                            
+00004b8b  get_keyboard                       
+00005121  green_led_init                     
+000043bf  handle_encoder                     
+00004963  home_LCD                           
+00005757  init_adc                           
+00003aa5  init_elevator_state                
+00005565  init_gpio                          
+0000514f  init_leds                          
+00005545  init_rot_enc                       
+00004399  init_strct                         
+00005841  init_systick                       
+00004b5d  key_catch                          
+00004c51  key_task                           
+000049bd  lcd_task                           
 20001cdc  led_state                          
-00004f5b  led_task                           
-00004d91  main                               
-00005495  memcpy                             
-000055c9  memset                             
-00004591  move_LCD                           
-00004779  out_LCD                            
-000046e9  out_LCD_high                       
-0000469f  out_LCD_low                        
+0000515f  led_task                           
+00004f95  main                               
+00005699  memcpy                             
+000057cd  memset                             
+00004795  move_LCD                           
+0000497d  out_LCD                            
+000048ed  out_LCD_high                       
+000048a3  out_LCD_low                        
 00000d11  pcTaskGetName                      
-00004b31  pvPortMalloc                       
+00004d35  pvPortMalloc                       
 000017c9  pvTaskIncrementMutexHeldCount      
 20001ee0  pxCurrentTCB                       
-00004ffd  pxPortInitialiseStack              
-00005789  rand                               
-00004ec1  red_led_init                       
-00004379  rotary_encoder_task                
-0000490d  row                                
+00005201  pxPortInitialiseStack              
+0000598d  rand                               
+000050c5  red_led_init                       
+0000457d  rotary_encoder_task                
+00004b11  row                                
 0000200f  string_to_LCD                      
-00005405  switch_task                        
-00005898  ulMaxSyscallInterruptPriority      
-00005275  ulPortGetIPSR                      
+00005609  switch_task                        
+00005a9c  ulMaxSyscallInterruptPriority      
+00005479  ulPortGetIPSR                      
 000017e9  ulTaskGenericNotifyTake            
 00001e59  ulTaskGenericNotifyValueClear      
-0000521b  uxListRemove                       
-0000364d  uxQueueMessagesWaiting             
-00003683  uxQueueMessagesWaitingFromISR      
-00003663  uxQueueSpacesAvailable             
+0000541f  uxListRemove                       
+000037f1  uxQueueMessagesWaiting             
+00003827  uxQueueMessagesWaitingFromISR      
+00003807  uxQueueSpacesAvailable             
 00000d01  uxTaskGetNumberOfTasks             
 00000621  uxTaskPriorityGet                  
 0000064d  uxTaskPriorityGetFromISR           
 000017a1  uxTaskResetEventItemValue          
-0000589c  uxTopUsedPriority                  
-00005139  vListInitialise                    
-00005169  vListInitialiseItem                
-000051b5  vListInsert                        
-00005179  vListInsertEnd                     
-00005331  vPortEnableVFP                     
-0000509d  vPortEndScheduler                  
-0000509f  vPortEnterCritical                 
-000050bf  vPortExitCritical                  
-00004c49  vPortFree                          
-00004cad  vPortInitialiseBlocks              
-000052ed  vPortSVCHandler                    
-000050fb  vPortSetupTimerInterrupt           
-0000530d  vPortStartFirstTask                
-00003699  vQueueDelete                       
+00005aa0  uxTopUsedPriority                  
+0000533d  vListInitialise                    
+0000536d  vListInitialiseItem                
+000053b9  vListInsert                        
+0000537d  vListInsertEnd                     
+00005535  vPortEnableVFP                     
+000052a1  vPortEndScheduler                  
+000052a3  vPortEnterCritical                 
+000052c3  vPortExitCritical                  
+00004e4d  vPortFree                          
+00004eb1  vPortInitialiseBlocks              
+000054f1  vPortSVCHandler                    
+000052ff  vPortSetupTimerInterrupt           
+00005511  vPortStartFirstTask                
+0000383d  vQueueDelete                       
 000005eb  vTaskDelay                         
 000004a3  vTaskDelete                        
 00000b17  vTaskEndScheduler                  
@@ -353,30 +353,30 @@ ffffffff  binit
 00000801  vTaskSuspend                       
 00000b33  vTaskSuspendAll                    
 00000f39  vTaskSwitchContext                 
-00004559  wr_ch_LCD                          
-000046ff  wr_ctrl_LCD                        
-00004689  wr_ctrl_LCD_high                   
-000045c7  wr_ctrl_LCD_low                    
-00004573  wr_str_LCD                         
-00004ca7  xPortGetFreeHeapSize               
-0000528d  xPortPendSVHandler                 
-00005067  xPortStartScheduler                
-000050d5  xPortSysTickHandler                
-00002eb7  xQueueCreateMutex                  
-00002de7  xQueueGenericCreate                
-00002d15  xQueueGenericReset                 
-00002f63  xQueueGenericSend                  
-00003091  xQueueGenericSendFromISR           
-00003133  xQueueGiveFromISR                  
-00002ee3  xQueueGiveMutexRecursive           
-00003893  xQueueIsQueueEmptyFromISR          
-000038d9  xQueueIsQueueFullFromISR           
-0000343f  xQueuePeek                         
-000035fb  xQueuePeekFromISR                  
-000031c7  xQueueReceive                      
-00003561  xQueueReceiveFromISR               
-000032e5  xQueueSemaphoreTake                
-00002f1f  xQueueTakeMutexRecursive           
+0000475d  wr_ch_LCD                          
+00004903  wr_ctrl_LCD                        
+0000488d  wr_ctrl_LCD_high                   
+000047cb  wr_ctrl_LCD_low                    
+00004777  wr_str_LCD                         
+00004eab  xPortGetFreeHeapSize               
+00005491  xPortPendSVHandler                 
+0000526b  xPortStartScheduler                
+000052d9  xPortSysTickHandler                
+0000305b  xQueueCreateMutex                  
+00002f8b  xQueueGenericCreate                
+00002eb9  xQueueGenericReset                 
+00003107  xQueueGenericSend                  
+00003235  xQueueGenericSendFromISR           
+000032d7  xQueueGiveFromISR                  
+00003087  xQueueGiveMutexRecursive           
+00003a37  xQueueIsQueueEmptyFromISR          
+00003a7d  xQueueIsQueueFullFromISR           
+000035e3  xQueuePeek                         
+0000379f  xQueuePeekFromISR                  
+0000336b  xQueueReceive                      
+00003705  xQueueReceiveFromISR               
+00003489  xQueueSemaphoreTake                
+000030c3  xQueueTakeMutexRecursive           
 20001cac  xQueue_button                      
 20001cb0  xQueue_elevator                    
 20001cb4  xQueue_encoder                     
@@ -404,7 +404,7 @@ ffffffff  binit
 00001035  xTaskRemoveFromEventList           
 00000b49  xTaskResumeAll                     
 000009f5  xTaskResumeFromISR                 
-00004eef  yellow_led_init                    
+000050f3  yellow_led_init                    
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -458,115 +458,115 @@ address   name
 00001e59  ulTaskGenericNotifyValueClear      
 00001f9d  change_int_to_char1                
 0000200f  string_to_LCD                      
-00002055  convert_string_to_int              
-000020bd  UI_task                            
-00002d15  xQueueGenericReset                 
-00002de7  xQueueGenericCreate                
-00002eb7  xQueueCreateMutex                  
-00002ee3  xQueueGiveMutexRecursive           
-00002f1f  xQueueTakeMutexRecursive           
-00002f63  xQueueGenericSend                  
-00003091  xQueueGenericSendFromISR           
-00003133  xQueueGiveFromISR                  
-000031c7  xQueueReceive                      
-000032e5  xQueueSemaphoreTake                
-0000343f  xQueuePeek                         
-00003561  xQueueReceiveFromISR               
-000035fb  xQueuePeekFromISR                  
-0000364d  uxQueueMessagesWaiting             
-00003663  uxQueueSpacesAvailable             
-00003683  uxQueueMessagesWaitingFromISR      
-00003699  vQueueDelete                       
-00003893  xQueueIsQueueEmptyFromISR          
-000038d9  xQueueIsQueueFullFromISR           
-000038ff  _nop                               
-00003901  init_elevator_state                
-00003909  elevator_task                      
-00004125  change_int_to_char                 
-00004195  init_strct                         
-000041bb  handle_encoder                     
-00004379  rotary_encoder_task                
-00004559  wr_ch_LCD                          
-00004573  wr_str_LCD                         
-00004591  move_LCD                           
-000045c7  wr_ctrl_LCD_low                    
-00004689  wr_ctrl_LCD_high                   
-0000469f  out_LCD_low                        
-000046e9  out_LCD_high                       
-000046ff  wr_ctrl_LCD                        
-00004755  clr_LCD                            
-0000475f  home_LCD                           
-00004769  Set_cursor                         
-00004779  out_LCD                            
-000047b9  lcd_task                           
-0000490d  row                                
-00004959  key_catch                          
-00004987  get_keyboard                       
-000049dd  check_column                       
-00004a4d  key_task                           
-00004b31  pvPortMalloc                       
-00004c49  vPortFree                          
-00004ca7  xPortGetFreeHeapSize               
-00004cad  vPortInitialiseBlocks              
-00004d91  main                               
-00004ec1  red_led_init                       
-00004eef  yellow_led_init                    
-00004f1d  green_led_init                     
-00004f4b  init_leds                          
-00004f5b  led_task                           
-00004ffd  pxPortInitialiseStack              
-00005067  xPortStartScheduler                
-0000509d  vPortEndScheduler                  
-0000509f  vPortEnterCritical                 
-000050bf  vPortExitCritical                  
-000050d5  xPortSysTickHandler                
-000050fb  vPortSetupTimerInterrupt           
-00005139  vListInitialise                    
-00005169  vListInitialiseItem                
-00005179  vListInsertEnd                     
-000051b5  vListInsert                        
-0000521b  uxListRemove                       
-00005275  ulPortGetIPSR                      
-0000528d  xPortPendSVHandler                 
-000052ed  vPortSVCHandler                    
-0000530d  vPortStartFirstTask                
-00005331  vPortEnableVFP                     
-00005341  init_rot_enc                       
-00005361  init_gpio                          
-000053f1  button_pushed                      
-00005405  switch_task                        
-00005495  __aeabi_memcpy                     
-00005495  __aeabi_memcpy4                    
-00005495  __aeabi_memcpy8                    
-00005495  memcpy                             
-00005531  get_adc                            
-00005539  adc_task                           
-00005553  init_adc                           
-000055c1  __aeabi_memclr                     
-000055c1  __aeabi_memclr4                    
-000055c1  __aeabi_memclr8                    
-000055c3  __aeabi_memset                     
-000055c3  __aeabi_memset4                    
-000055c3  __aeabi_memset8                    
-000055c9  memset                             
-0000563d  init_systick                       
-000056a9  __TI_decompress_lzss               
-00005711  __TI_auto_init_nobinit_nopinit     
-00005755  _c_int00_noargs                    
-00005789  rand                               
-000057bd  __TI_decompress_none               
-000057cb  __TI_zero_init                     
-000057d7  ResetISR                           
-000057e3  _system_pre_init                   
-000057e7  C$$EXIT                            
-000057e7  abort                              
-0000586e  LCD_init_sequense                  
-00005898  ulMaxSyscallInterruptPriority      
-0000589c  uxTopUsedPriority                  
-000058c0  __TI_Handler_Table_Base            
-000058cc  __TI_Handler_Table_Limit           
-000058d8  __TI_CINIT_Base                    
-000058e8  __TI_CINIT_Limit                   
+00002071  convert_string_to_int              
+000020d9  UI_task                            
+00002eb9  xQueueGenericReset                 
+00002f8b  xQueueGenericCreate                
+0000305b  xQueueCreateMutex                  
+00003087  xQueueGiveMutexRecursive           
+000030c3  xQueueTakeMutexRecursive           
+00003107  xQueueGenericSend                  
+00003235  xQueueGenericSendFromISR           
+000032d7  xQueueGiveFromISR                  
+0000336b  xQueueReceive                      
+00003489  xQueueSemaphoreTake                
+000035e3  xQueuePeek                         
+00003705  xQueueReceiveFromISR               
+0000379f  xQueuePeekFromISR                  
+000037f1  uxQueueMessagesWaiting             
+00003807  uxQueueSpacesAvailable             
+00003827  uxQueueMessagesWaitingFromISR      
+0000383d  vQueueDelete                       
+00003a37  xQueueIsQueueEmptyFromISR          
+00003a7d  xQueueIsQueueFullFromISR           
+00003aa3  _nop                               
+00003aa5  init_elevator_state                
+00003aad  elevator_task                      
+00004329  change_int_to_char                 
+00004399  init_strct                         
+000043bf  handle_encoder                     
+0000457d  rotary_encoder_task                
+0000475d  wr_ch_LCD                          
+00004777  wr_str_LCD                         
+00004795  move_LCD                           
+000047cb  wr_ctrl_LCD_low                    
+0000488d  wr_ctrl_LCD_high                   
+000048a3  out_LCD_low                        
+000048ed  out_LCD_high                       
+00004903  wr_ctrl_LCD                        
+00004959  clr_LCD                            
+00004963  home_LCD                           
+0000496d  Set_cursor                         
+0000497d  out_LCD                            
+000049bd  lcd_task                           
+00004b11  row                                
+00004b5d  key_catch                          
+00004b8b  get_keyboard                       
+00004be1  check_column                       
+00004c51  key_task                           
+00004d35  pvPortMalloc                       
+00004e4d  vPortFree                          
+00004eab  xPortGetFreeHeapSize               
+00004eb1  vPortInitialiseBlocks              
+00004f95  main                               
+000050c5  red_led_init                       
+000050f3  yellow_led_init                    
+00005121  green_led_init                     
+0000514f  init_leds                          
+0000515f  led_task                           
+00005201  pxPortInitialiseStack              
+0000526b  xPortStartScheduler                
+000052a1  vPortEndScheduler                  
+000052a3  vPortEnterCritical                 
+000052c3  vPortExitCritical                  
+000052d9  xPortSysTickHandler                
+000052ff  vPortSetupTimerInterrupt           
+0000533d  vListInitialise                    
+0000536d  vListInitialiseItem                
+0000537d  vListInsertEnd                     
+000053b9  vListInsert                        
+0000541f  uxListRemove                       
+00005479  ulPortGetIPSR                      
+00005491  xPortPendSVHandler                 
+000054f1  vPortSVCHandler                    
+00005511  vPortStartFirstTask                
+00005535  vPortEnableVFP                     
+00005545  init_rot_enc                       
+00005565  init_gpio                          
+000055f5  button_pushed                      
+00005609  switch_task                        
+00005699  __aeabi_memcpy                     
+00005699  __aeabi_memcpy4                    
+00005699  __aeabi_memcpy8                    
+00005699  memcpy                             
+00005735  get_adc                            
+0000573d  adc_task                           
+00005757  init_adc                           
+000057c5  __aeabi_memclr                     
+000057c5  __aeabi_memclr4                    
+000057c5  __aeabi_memclr8                    
+000057c7  __aeabi_memset                     
+000057c7  __aeabi_memset4                    
+000057c7  __aeabi_memset8                    
+000057cd  memset                             
+00005841  init_systick                       
+000058ad  __TI_decompress_lzss               
+00005915  __TI_auto_init_nobinit_nopinit     
+00005959  _c_int00_noargs                    
+0000598d  rand                               
+000059c1  __TI_decompress_none               
+000059cf  __TI_zero_init                     
+000059db  ResetISR                           
+000059e7  _system_pre_init                   
+000059eb  C$$EXIT                            
+000059eb  abort                              
+00005a72  LCD_init_sequense                  
+00005a9c  ulMaxSyscallInterruptPriority      
+00005aa0  uxTopUsedPriority                  
+00005ac8  __TI_Handler_Table_Base            
+00005ad4  __TI_Handler_Table_Limit           
+00005ae0  __TI_CINIT_Base                    
+00005af0  __TI_CINIT_Limit                   
 20000000  __start___llvm_prf_cnts            
 20000000  __stop___llvm_prf_cnts             
 20001c84  data                               

@@ -25,6 +25,7 @@
 extern struct elevator_data data;
 extern struct adc_data data_adc;
 extern QueueHandle_t xQueue_lcd, xQueue_elevator, xQueue_button;
+extern SemaphoreHandle_t xSemaphore_lcd;
 extern INT8S encoder_cnt;
 
 LED_states led_state;
@@ -55,7 +56,8 @@ void elevator_task(void *pvParamters){
     INT16U val;
     INT8U digit1;
     INT8U digit2;
-    INT8U TF;
+    INT8U code_TF;
+    INT8U button_TF;
 
     char char_digit1;
     char char_digit2;
@@ -64,8 +66,8 @@ void elevator_task(void *pvParamters){
 
         if(uxQueueMessagesWaiting(xQueue_elevator)){
             if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
-                if(xQueueReceive( xQueue_elevator, &TF, portMAX_DELAY)){
-                    if(TF == TRUE){
+                if(xQueueReceive( xQueue_elevator, &code_TF, portMAX_DELAY)){
+                    if(code_TF == TRUE){
                         elevator_state = AVAILABLE;
                     }
                     else{
@@ -77,8 +79,8 @@ void elevator_task(void *pvParamters){
         }
         else if(uxQueueMessagesWaiting(xQueue_button)){
         if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
-            if(xQueueReceive( xQueue_button, &TF, portMAX_DELAY)){
-                if(TF == TRUE){
+            if(xQueueReceive( xQueue_button, &button_TF, portMAX_DELAY)){
+                if(button_TF == TRUE){
                     elevator_state = LOCKED;
                 }
                 xSemaphoreGive(xSemaphore_ele_state);
@@ -184,16 +186,23 @@ void elevator_task(void *pvParamters){
             char_digit1 = change_int_to_char(digit1);               // Convert to char
             char_digit2 = change_int_to_char(digit2);
 
-            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+            if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                xSemaphoreGive( xSemaphore_lcd );
+            }
 
             move_LCD(8,1);
 
-            xQueueSend( xQueue_lcd, "v", portMAX_DELAY );
-            xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
-            xQueueSend( xQueue_lcd, "l", portMAX_DELAY );
-            xQueueSend( xQueue_lcd, ":", portMAX_DELAY );
-            xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+            if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                xQueueSend( xQueue_lcd, "v", portMAX_DELAY );
+                xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
+                xQueueSend( xQueue_lcd, "l", portMAX_DELAY );
+                xQueueSend( xQueue_lcd, ":", portMAX_DELAY );
+                xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+                xSemaphoreGive( xSemaphore_lcd );
+            }
+
 
             digit1 = vel;
             digit2 = (INT8U)(vel*10)%10;
@@ -201,8 +210,11 @@ void elevator_task(void *pvParamters){
             char_digit1 = change_int_to_char(digit1);
             char_digit2 = change_int_to_char(digit2);
 
-            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+            if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                xSemaphoreGive( xSemaphore_lcd );
+            }
 
                 if(dir_up == TRUE){
                     if(ele_flr >= trgt_flr){                                    // Reset information for next trip
@@ -245,7 +257,7 @@ void elevator_task(void *pvParamters){
                         }
                         else if(data.CUR_FLOOR == data.ELE_FLOOR){
                             if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
-                                elevator_state = AWAY;
+                                elevator_state = LOCKED;
                                 xSemaphoreGive( xSemaphore_ele_state );
                             }
                         }
@@ -291,7 +303,7 @@ void elevator_task(void *pvParamters){
                     }
                     else if(data.CUR_FLOOR == data.ELE_FLOOR){
                         if(xSemaphoreTake(xSemaphore_ele_state, portMAX_DELAY)){
-                            elevator_state = AWAY;
+                            elevator_state = LOCKED;
                             xSemaphoreGive( xSemaphore_ele_state );
                         }
                     }

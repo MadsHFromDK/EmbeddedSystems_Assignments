@@ -91,11 +91,18 @@ void string_to_LCD(INT8U text_length, char text[]) {
 
     INT8U text_count = 0;
     char send_lcd;
+
+    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+
         while (text_count < text_length) {
             send_lcd = text[text_count];
+
             xQueueSend(xQueue_lcd, &send_lcd, portMAX_DELAY);
             text_count++;
         }
+
+        xSemaphoreGive( xSemaphore_lcd );
+    }
 }
 
 INT8U convert_string_to_int(char *input, INT8U length){
@@ -184,9 +191,15 @@ static repair_states prev_repair;
                 key_code[1] = 'x';
                 key_code[2] = 'x';
                 key_code[3] = 'x';
-                xQueueReset(xQueue_lcd);
+
                 prev_state = elevator_state;
-                xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+
+                if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                    xQueueReset(xQueue_lcd);
+                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                    xSemaphoreGive( xSemaphore_lcd );
+                }
+
                 move_LCD(0,0);
                 string_to_LCD(locked_text_length, locked_text);
                 move_LCD(0,1);
@@ -267,8 +280,13 @@ static repair_states prev_repair;
                     key_code[1] = 'x';
                     key_code[2] = 'x';
                     key_code[3] = 'x';
-                    xQueueReset(xQueue_lcd);
-                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueReset(xQueue_lcd);
+                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
+
                     prev_state = elevator_state;
 
                     string_to_LCD(idle_text_length, idle_text);
@@ -284,8 +302,14 @@ static repair_states prev_repair;
                     key_code[1] = 'x';
                     key_code[2] = 'x';
                     key_code[3] = 'x';
-                    xQueueReset(xQueue_lcd);
-                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+
+
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueReset(xQueue_lcd);
+                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
+
                     string_to_LCD(unlocked_text_length, unlocked_text);
                     move_LCD(0,1);
                     prev_state = elevator_state;
@@ -301,8 +325,11 @@ static repair_states prev_repair;
                     char_digit1 = change_int_to_char(digit1);
                     char_digit2 = change_int_to_char(digit2);
 
-                    xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-                    xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                        xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
 
                     move_LCD(0,1);
                 }
@@ -318,8 +345,13 @@ static repair_states prev_repair;
                     key_code[1] = 'x';
                     key_code[2] = 'x';
                     key_code[3] = 'x';
-                    xQueueReset(xQueue_lcd);
-                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueReset(xQueue_lcd);
+                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
+
                     prev_state = elevator_state;
 
                     move_LCD(0,0);
@@ -339,8 +371,13 @@ static repair_states prev_repair;
                     key_code[1] = 'x';
                     key_code[2] = 'x';
                     key_code[3] = 'x';
-                    xQueueReset(xQueue_lcd);
-                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueReset(xQueue_lcd);
+                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
+
                     prev_state = elevator_state;
                 }
 
@@ -350,7 +387,11 @@ static repair_states prev_repair;
                     if(repair_state != prev_repair){                                // First time entering the state, write static text
                         prev_repair = repair_state;
 
-                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
+
                         move_LCD(0,0);
                         string_to_LCD(repair_pot_text_length, repair_pot_text);
                         move_LCD(0,1);
@@ -366,11 +407,13 @@ static repair_states prev_repair;
                         char_digit2 = change_int_to_char(digit2);
                         char_digit3 = change_int_to_char(digit3);
 
-                        xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
-
-                        xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
 
                         digit1 = abs(data_adc.val)/100;
                         digit2 = abs(data_adc.val/10)%10;
@@ -380,9 +423,12 @@ static repair_states prev_repair;
                         char_digit2 = change_int_to_char(digit2);
                         char_digit3 = change_int_to_char(digit3);
 
-                        xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
 
                         move_LCD(0,1);
 
@@ -400,8 +446,12 @@ static repair_states prev_repair;
                     if(repair_state != prev_repair){
                         prev_repair = repair_state;
 
-                        xQueueReset(xQueue_lcd);
-                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueReset(xQueue_lcd);
+                            xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
+
                         move_LCD(0,0);
                         string_to_LCD(repair_enc_text_length, repair_enc_text);
                         move_LCD(0,1);
@@ -421,13 +471,16 @@ static repair_states prev_repair;
                         char_digit2 = change_int_to_char(digit2);
                         char_digit3 = change_int_to_char(digit3);
 
-                        xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "d", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "g", portMAX_DELAY );
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "d", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "g", portMAX_DELAY );
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
 
                         move_LCD(0,1);
                     }
@@ -482,13 +535,16 @@ static repair_states prev_repair;
                         char_digit2 = change_int_to_char(digit2);
                         char_digit3 = change_int_to_char(digit3);
 
-                        xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "d", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
-                        xQueueSend( xQueue_lcd, "g", portMAX_DELAY );
+                        if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                            xQueueSend( xQueue_lcd, &char_digit1, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit2, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, &char_digit3, portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, " ", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "d", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "e", portMAX_DELAY );
+                            xQueueSend( xQueue_lcd, "g", portMAX_DELAY );
+                            xSemaphoreGive( xSemaphore_lcd );
+                        }
 
                         move_LCD(0,1);
                     }
@@ -507,8 +563,12 @@ static repair_states prev_repair;
                     key_code[2] = 'x';
                     key_code[3] = 'x';
 
-                    xQueueReset(xQueue_lcd);
-                    xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                    if(xSemaphoreTake( xSemaphore_lcd, portMAX_DELAY)){
+                        xQueueReset(xQueue_lcd);
+                        xQueueSend( xQueue_lcd, &reset_lcd, portMAX_DELAY);
+                        xSemaphoreGive( xSemaphore_lcd );
+                    }
+
                     prev_state = elevator_state;
                 }
 
